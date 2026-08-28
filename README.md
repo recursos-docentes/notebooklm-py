@@ -1,6 +1,3 @@
-
-
-Notebooklm py es · MD
 # notebooklm-py
 <p align="left">
   <img src="https://raw.githubusercontent.com/teng-lin/notebooklm-py/main/notebooklm-py.png" alt="logo de notebooklm-py" width="128">
