@@ -1,319 +1,263 @@
-# notebooklm-py
-<p align="left">
-  <img src="https://raw.githubusercontent.com/teng-lin/notebooklm-py/main/notebooklm-py.png" alt="notebooklm-py logo" width="128">
-</p>
 
-**A Comprehensive Google Gemini Notebook Skill & Unofficial Python API.** Full programmatic access to NotebookLM's features—including capabilities the web UI doesn't expose—via Python, CLI, and AI agents like Claude Code, Codex, and OpenClaw.
 
-> **Note (July 2026):** Google rebranded **NotebookLM** to **[Gemini Notebook](https://blog.google/innovation-and-ai/products/gemini-notebook/notebooklm-gemini-notebook/)**. It remains the same standalone product (now also reachable inside the Gemini app), existing links redirect automatically, and this library drives the same underlying service and works unchanged. The package keeps the `notebooklm-py` name.
+Notebooklm py es · MD
+notebooklm-py
+<p align="left"> <img src="https://raw.githubusercontent.com/teng-lin/notebooklm-py/main/notebooklm-py.png" alt="logo de notebooklm-py" width="128"> </p>
+Una skill integral para Google Gemini Notebook y una API de Python no oficial. Acceso programático completo a las funciones de NotebookLM —incluidas capacidades que la interfaz web no expone— a través de Python, CLI y agentes de IA como Claude Code, Codex y OpenClaw.
 
-[![PyPI version](https://img.shields.io/pypi/v/notebooklm-py.svg)](https://pypi.org/project/notebooklm-py/)
-[![Python Version](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue)](https://pypi.org/project/notebooklm-py/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Tests](https://github.com/teng-lin/notebooklm-py/actions/workflows/test.yml/badge.svg)](https://github.com/teng-lin/notebooklm-py/actions/workflows/test.yml)
-<p>
-  <a href="https://trendshift.io/repositories/19116" target="_blank"><img src="https://trendshift.io/api/badge/repositories/19116" alt="teng-lin%2Fnotebooklm-py | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
-</p>
+Nota (julio de 2026): Google renombró NotebookLM como Gemini Notebook. Sigue siendo el mismo producto independiente (ahora también accesible desde la app de Gemini), los enlaces existentes redirigen automáticamente y esta librería controla el mismo servicio subyacente sin cambios. El paquete conserva el nombre notebooklm-py.
 
-**Source & Development**: <https://github.com/teng-lin/notebooklm-py>
+Versión en PyPI Versión de Python Licencia: MIT Tests
 
-> **⚠️ Unofficial Library - Use at Your Own Risk**
->
-> This library uses **undocumented Google APIs** that can change without notice.
->
-> - **Not affiliated with Google** - This is a community project
-> - **APIs may break** - Google can change internal endpoints anytime
-> - **Rate limits apply** - Heavy usage may be throttled
->
-> Best for prototypes, research, and personal projects. See [Troubleshooting](docs/troubleshooting.md) for debugging tips.
+<p> <a href="https://trendshift.io/repositories/19116" target="_blank"><img src="https://trendshift.io/api/badge/repositories/19116" alt="teng-lin%2Fnotebooklm-py | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a> </p>
+Fuente y desarrollo: https://github.com/teng-lin/notebooklm-py
 
-## What You Can Build
+⚠️ Librería no oficial - Uso bajo su propio riesgo
 
-🤖 **AI Agent Tools** - Integrate NotebookLM into Claude Code, Codex, and other LLM agents. Ships with a root [NotebookLM skill](SKILL.md) for GitHub and `npx skills add` discovery, local `notebooklm skill install` support for Claude Code and `.agents` skill directories, and repo-level Codex guidance in [`AGENTS.md`](AGENTS.md).
+Esta librería utiliza APIs internas no documentadas de Google que pueden cambiar sin previo aviso.
 
-📚 **Research Automation** - Bulk-import sources (URLs, PDFs, YouTube, Google Drive), run web/Drive research queries with auto-import, and extract insights programmatically. Build repeatable research pipelines.
+No afiliada a Google - Es un proyecto de la comunidad
+Las APIs pueden romperse - Google puede modificar los endpoints internos en cualquier momento
+Aplican límites de uso - El uso intensivo puede ser limitado
+Ideal para prototipos, investigación y proyectos personales. Consultar Solución de problemas para consejos de depuración.
 
-🎙️ **Content Generation** - Generate Audio Overviews (podcasts), videos, slide decks, quizzes, flashcards, infographics, data tables, mind maps, and study guides. Full control over formats, styles, and output.
+Qué se puede construir
+🤖 Herramientas para agentes de IA - Integra NotebookLM en Claude Code, Codex y otros agentes LLM. Incluye una skill raíz de NotebookLM para GitHub y para el descubrimiento vía npx skills add, soporte local mediante notebooklm skill install para Claude Code y directorios de skills .agents, y una guía a nivel de repositorio para Codex en AGENTS.md.
 
-📥 **Downloads & Export** - Download all generated artifacts locally (MP3, MP4, PDF, PNG, CSV, JSON, Markdown). Export to Google Docs/Sheets. **Features the web UI doesn't offer**: batch downloads, quiz/flashcard export in multiple formats, mind map JSON extraction.
+📚 Automatización de investigación - Importación masiva de fuentes (URLs, PDFs, YouTube, Google Drive), ejecución de consultas de investigación web/Drive con importación automática, y extracción programática de información. Permite construir pipelines de investigación repetibles.
 
-## Use Cases & Recipes
+🎙️ Generación de contenido - Genera audiodescripciones (podcasts), videos, presentaciones de diapositivas, cuestionarios, tarjetas de estudio, infografías, tablas de datos, mapas mentales y guías de estudio. Control total sobre formatos, estilos y resultados.
 
-NotebookLM is a **grounded** engine: Gemini does the heavy reading and answers from *your* sources with citations. The winning pattern is to let it do the expensive analysis while your agent (Claude Code, Codex, …) orchestrates and handles the final mile — using NotebookLM as a **zero-token synthesis + memory layer an agent drives in a loop**, and pulling structured artifacts **out** in bulk and in richer, scriptable formats. Recipes people build on top of this library, grouped by what they use NotebookLM *as*:
+📥 Descargas y exportación - Descarga localmente todos los artefactos generados (MP3, MP4, PDF, PNG, CSV, JSON, Markdown). Exporta a Google Docs/Sheets. Funciones que la interfaz web no ofrece: descargas por lotes, exportación de cuestionarios/tarjetas en múltiples formatos, extracción de mapas mentales en JSON.
 
-**Spend fewer tokens** — let NotebookLM do the expensive thinking:
+Casos de uso y recetas
+NotebookLM es un motor fundamentado (grounded): Gemini hace la lectura pesada y responde a partir de tus propias fuentes con citas. El patrón ganador es dejar que haga el análisis costoso mientras tu agente (Claude Code, Codex, …) orquesta y se encarga del último tramo — usando NotebookLM como una capa de síntesis y memoria sin costo de tokens que un agente controla en un bucle, y extrayendo artefactos estructurados hacia afuera en formatos más completos y automatizables. Recetas que la comunidad construye sobre esta librería, agrupadas según para qué usan NotebookLM:
 
-- **🪙 Zero-token research offload** — Throw 30 documents into a notebook, let Gemini do the heavy analysis, and have your agent spend tokens only on the final polish. The agent just orchestrates (`create` → `source add` → `ask`); the reasoning happens server-side. *In the wild: [a four-workflow guide to stop Claude Code burning tokens on NotebookLM](https://x.com/hooeem/status/2042293751805329445).*
-- **🧠 Knowledge distillation → a permanent skill** — Run [Deep Research](docs/cli-reference.md#source-add-research) (`source add-research "your topic" --mode deep`) or load a doc corpus, let NotebookLM's Gemini condense it, and bake the result into a `SKILL.md` your agent loads at startup — **build once, reuse with zero runtime tokens or network calls**, git-versioned and immune to UI drift. A packaged domain expert without hand-curating sources. (Dumping raw docs into a skill flattens the hierarchy; NotebookLM condensing first is what makes it work.)
-- **✅ Self-validating skills** — Have NotebookLM generate the *eval set* — a quiz straight from your sources — to grade an agent skill against ground truth instead of test questions you'd bias yourself. Build the skill, run it against the NotebookLM-authored evals, iterate to a pass. *In the wild: [a skill that scored 4/10 on the first pass and 10/10 after one iteration, graded by a NotebookLM-generated quiz](https://x.com/nurijanian/status/2037136490157986277).*
+Ahorrar tokens — dejar que NotebookLM haga el razonamiento costoso:
 
-**Give your agent memory** — persistent, grounded recall:
+🪙 Delegación de investigación sin costo de tokens — Cargar 30 documentos en un notebook, dejar que Gemini haga el análisis pesado, y que el agente gaste tokens solo en el pulido final. El agente solo orquesta (create → source add → ask); el razonamiento ocurre del lado del servidor. En la práctica: una guía de cuatro flujos de trabajo para que Claude Code deje de gastar tokens en NotebookLM.
+🧠 Destilación de conocimiento → una skill permanente — Ejecutar Deep Research (source add-research "tu tema" --mode deep) o cargar un corpus de documentos, dejar que Gemini de NotebookLM lo condense, e incorporar el resultado en un SKILL.md que el agente carga al iniciar — se construye una vez y se reutiliza sin gasto de tokens ni llamadas de red en tiempo de ejecución, versionado en git e inmune a los cambios de la interfaz. Un experto de dominio empaquetado sin tener que curar fuentes a mano. (Volcar documentos en bruto en una skill aplana la jerarquía; que NotebookLM los condense primero es lo que lo hace funcionar).
+✅ Skills autoevaluables — Hacer que NotebookLM genere el conjunto de evaluación — un cuestionario directo de las fuentes — para calificar una skill de agente contra una verdad de referencia en vez de preguntas de prueba que uno mismo podría sesgar. Construir la skill, evaluarla contra los exámenes generados por NotebookLM, iterar hasta aprobar. En la práctica: una skill que obtuvo 4/10 en el primer intento y 10/10 tras una iteración, evaluada por un cuestionario generado por NotebookLM.
+Darle memoria al agente — recuperación persistente y fundamentada:
 
-- **💾 Persistent cross-session memory** — Keep a "Master Brain" notebook; a wrap-up step appends each session's decisions and fixes as notes (`note create` / `ask --save-as-note`), and a line in your `CLAUDE.md` queries it (`ask`) at the start of the next session. Storage and recall live on Google's infrastructure.
-- **🧩 Grounded memory for coding agents** — Expose a notebook of your internal docs/RFCs/architecture over the [MCP server](docs/mcp-guide.md) (or plain `ask`) so an agent answers from *your* code with citations rather than plausible-sounding guesses — a zero-infra alternative to standing up your own vector DB and embedding pipeline. *In the wild: [turning a notebook into the source-grounded "project brain" a coding agent consults before it writes code](https://medium.com/@pradeep00271/every-software-project-needs-a-project-brain-5cbc33917160).*
-- **🪞 Query your own notes / journal** — Load years of daily notes, meeting logs, or a journal and `ask` for **cited** answers *across your own history* — surfacing long-term patterns a keyword search can't (e.g. a weekly summary synthesized from 282 daily notes, every claim linked back to the entry it came from). *In the wild: [chatting with a year of daily notes as a cited knowledge base](https://artemxtech.substack.com/p/notebooklm-has-a-knowledge-graph).*
+💾 Memoria persistente entre sesiones — Mantener un notebook "Cerebro Maestro"; un paso de cierre agrega las decisiones y correcciones de cada sesión como notas (note create / ask --save-as-note), y una línea en el CLAUDE.md lo consulta (ask) al inicio de la siguiente sesión. El almacenamiento y la recuperación quedan en la infraestructura de Google.
+🧩 Memoria fundamentada para agentes de código — Exponer un notebook con la documentación interna, RFCs y arquitectura propios a través del servidor MCP (o simplemente ask) para que un agente responda a partir del código propio con citas, en lugar de suposiciones que solo suenan plausibles — una alternativa sin infraestructura a montar una base de datos vectorial y un pipeline de embeddings propios. En la práctica: convertir un notebook en el "cerebro del proyecto" fundamentado en fuentes que un agente de código consulta antes de escribir.
+🪞 Consultar las propias notas / diario — Cargar años de notas diarias, actas de reuniones o un diario y usar ask para obtener respuestas citadas a partir del propio historial — revelando patrones de largo plazo que una búsqueda por palabras clave no puede (por ejemplo, un resumen semanal sintetizado a partir de 282 notas diarias, con cada afirmación enlazada a la entrada de origen). En la práctica: conversar con un año de notas diarias como base de conocimiento citada.
+Convertir las fuentes en respuestas y artefactos — respuestas citadas, medios generados y exportaciones:
 
-**Turn your sources into answers & artifacts** — cited responses, generated media, and exports:
+📞 Base de conocimiento fundamentada / oráculo de soporte técnico (RAG) — Cargar documentación de producto, preguntas frecuentes, RFCs y tickets pasados, y luego usar ask --json para obtener respuestas fundamentadas en las fuentes y citadas para soporte, guardias o consultas internas. O hacer que un agente apunte a toda la documentación de una herramienta en rápida evolución — más de lo que el agente puede mantener en contexto — como un oráculo de resolución de problemas que consulta apenas encuentra un error. En la práctica: OpenClaw hizo que la librería scrapeara las 524 páginas de docs.openclaw.ai, eliminara traducciones duplicadas, y las depurara hasta 269 fuentes limpias (faltantes/sobrantes/duplicadas = 0).
+🔁 Reutilización de contenido multiformato — Un mismo conjunto de fuentes, todos los formatos: generate audio (podcast), generate video, generate slide-deck, además de un borrador de blog con generate report, generate quiz y generate flashcards — un solo notebook desplegado en múltiples canales.
+📤 Exportaciones masivas y automatizables — Extraer mapas mentales como JSON, cuestionarios/tarjetas como JSON/Markdown/HTML, tablas de datos como CSV, e informes como Markdown — en lote, a archivos locales, directo a Anki, a la herramienta de mapas mentales propia, o a un repositorio (download <tipo> / download <tipo> --all). La mitad programática de "sacar datos", no solo de "meter fuentes".
+🕸️ Sincronización con Obsidian / grafo de conocimiento — Ejecutar la CLI desde la raíz del vault para que los artefactos descargados (informes, JSON de mapas mentales, transcripciones) queden como archivos en el grafo de conocimiento propio; algunas skills de la comunidad construidas sobre esta librería incluso resuelven los marcadores de citas de NotebookLM en [[wikilinks]] de Obsidian. Combinar con una audiodescripción tipo podcast para un resumen sonoro de las propias notas. En la práctica: "Claude Code + NotebookLM + Obsidian = GOD MODE".
+Ejecutarlo sin supervisión, a escala o desde el celular — programado, sin interfaz gráfica y remoto:
 
-- **📞 Grounded knowledge base / troubleshooting oracle (RAG)** — Load product docs, FAQs, RFCs, and past tickets, then `ask --json` for **source-grounded, cited** answers for support, on-call, or internal Q&A. Or have an agent point it at an entire fast-moving tool's docs — more than the agent can hold in context — as a **troubleshooting oracle** it queries the moment it hits an error. *In the wild: [OpenClaw drove the library to scrape all 524 pages of `docs.openclaw.ai`, dedupe the duplicate translations, and audit it down to 269 clean sources (missing/extra/duplicate = 0)](https://x.com/onenewbite/status/2024819940327379286).*
-- **🔁 Multi-format content repurposing** — One source set, every format: `generate audio` (podcast), `generate video`, `generate slide-deck`, plus a `generate report` blog draft, `generate quiz`, and `generate flashcards` — fan a single notebook out across channels.
-- **📤 Bulk, scriptable exports** — Pull mind maps as JSON, flashcards/quizzes as JSON/Markdown/HTML, data tables as CSV, and reports as Markdown — **in bulk, to local files, straight into Anki, your mind-mapping tool, or a repo** (`download <type>` / `download <type> --all`). The programmatic "get data *out*" half of the library, not just "put sources in."
-- **🕸️ Obsidian / knowledge-graph sync** — Run the CLI from your vault root so downloaded artifacts (reports, mind-map JSON, transcripts) land as files in your knowledge graph; community skills built on this library even resolve NotebookLM's citation markers into Obsidian `[[wikilinks]]`. Pair with a podcast overview for an audio digest of your notes. *In the wild: ["Claude Code + NotebookLM + Obsidian = GOD MODE"](https://www.youtube.com/watch?v=kU3qYQ7ACMA).*
+🚨 Generador de manuales de incidentes — Ante una alerta, crear un notebook con la documentación relevante, hacer preguntas de diagnóstico específicas, y generar un informe tipo briefing (generate report --format briefing-doc --wait, luego download report) como manual automatizado.
+📚 Constructor de currículos / conjuntos de estudio — Extraer un programa de estudios o una hoja de ruta de desarrollo, crear un notebook por tema (espaciando las llamadas para evitar límites de uso), y generar en bloque podcasts, cuestionarios y tarjetas de estudio para cada uno.
+📰 Boletines de audio programados — Combinar auth refresh --quiet (cron/launchd/systemd) con generate audio para publicar un boletín personalizado y actualizado en un feed de podcast según un horario.
+📱 NotebookLM desde el celular, controlado por un agente — Alojar el conector MCP remoto detrás de un túnel de Cloudflare/Tailscale y agregarlo como conector personalizado en la web (Conectores de claude.ai, o ChatGPT con Modo Desarrollador). Luego controlar todo el conjunto de herramientas — investigación profunda, ingesta de fuentes, generación de contenido del estudio, preguntas y respuestas citadas — desde la app móvil de claude.ai en movimiento (los conectores MCP de ChatGPT son solo para web), encadenado con otras herramientas MCP propias, en lugar de saltar entre aplicaciones.
+Todo esto combina primitivas comunes de la librería — ver la Referencia de la CLI y la API de Python. El pegamento del lado del agente (skills, programación de tareas, estructura del vault) vive en la configuración propia de cada quien, no en este paquete. La cantidad de fuentes por notebook depende del nivel de la cuenta de Google — dividir entre varios notebooks si se alcanza un límite.
 
-**Run it unattended, at scale, or on the go** — scheduled, headless, and remote:
+¿Recién llega? Empezar con un recorrido: Claude Code + NotebookLM = CHEAT CODE (video) · 5 demos + 50 casos de uso, con prompts.
 
-- **🚨 Incident runbook generator** — On an alert, spin up a notebook of the relevant docs, ask targeted diagnostic questions, and generate a briefing-doc report (`generate report --format briefing-doc --wait`, then `download report`) as an automated runbook.
-- **📚 Curriculum / study-set builder** — Scrape a syllabus or developer roadmap, create one notebook per topic (with deliberate pacing to dodge rate limits), and bulk-generate podcasts, quizzes, and flashcards for each.
-- **📰 Scheduled audio briefings** — Pair `auth refresh --quiet` (cron/launchd/systemd) with `generate audio` to publish a fresh personalized briefing to a podcast feed on a schedule.
-- **📱 NotebookLM from your phone, agent-driven** — Self-host the [remote MCP connector](docs/mcp-guide.md#remote-deployment-docker--a-tunnel) behind a Cloudflare/Tailscale tunnel and add it as a custom connector **on the web** (claude.ai Connectors, or ChatGPT with Developer Mode). Then drive the full toolset — deep research, source ingestion, studio generation, cited Q&A — from the **claude.ai mobile app** on the go (ChatGPT's MCP connectors are web-only), chained with your other MCP tools, instead of app-hopping.
+Formas de uso
+Método	Ideal para
+API de Python	Integración en aplicaciones, flujos asíncronos, pipelines personalizados
+CLI	Scripts de shell, tareas rápidas, automatización de CI/CD
+Servidor MCP	Claude Desktop/Code, Codex, etc. — localmente vía stdio, o como conector remoto autoalojado (detrás de un túnel de Cloudflare/Tailscale) accesible desde claude.ai y ChatGPT, incluido el celular.
+Servidor REST	Automatización local sobre rutas HTTP protegidas sin lanzar un proceso de CLI por cada llamada
+Integración con agentes	Claude Code, Codex, agentes LLM, automatización en lenguaje natural
+Funciones
+Cobertura completa de NotebookLM
+Categoría	Capacidades
+Notebooks	Crear, listar, renombrar, eliminar
+Fuentes	URLs, YouTube, archivos (PDF, texto, Markdown, Word, EPUB, audio, video, imágenes), Google Drive, texto pegado; actualizar, obtener guía/texto completo
+Chat	Preguntas, historial de conversación, personas personalizadas, prompts iniciales sugeridos
+Notas	Crear, listar, renombrar, eliminar, guardar respuestas del chat, guardar historial de conversación
+Etiquetas de fuentes	Etiquetas de tema generadas por IA o manuales; agregar/quitar fuentes de una etiqueta; filtrar fuentes por etiqueta
+Investigación	Agentes de investigación web y de Drive (modos rápido/profundo) con importación automática
+Compartir	Enlaces públicos/privados, permisos de usuario (lector/editor), control del nivel de vista
+Generación de contenido (todos los tipos de artefactos)
+Tipo	Opciones	Formato de descarga
+Audiodescripción	4 formatos (análisis profundo, breve, crítica, debate), 3 duraciones, más de 50 idiomas	MP3
+Videodescripción	4 formatos (explicativo, breve, cinematográfico, corto), 8 estilos visuales (+ auto/personalizado), además de un alias de CLI dedicado cinematic-video	MP4
+Presentación de diapositivas	Formato detallado o de presentador, duración ajustable; revisión de diapositivas individuales	PDF, PPTX
+Infografía	3 orientaciones, 3 niveles de detalle	PNG
+Cuestionario	Cantidad y dificultad configurables	JSON, Markdown, HTML
+Tarjetas de estudio	Cantidad y dificultad configurables	JSON, Markdown, HTML
+Informe	Documento de briefing, guía de estudio, entrada de blog, o prompt personalizado	Markdown
+Tabla de datos	Estructura personalizada mediante lenguaje natural	CSV
+Mapa mental	Árbol de nodos jerárquico — dos variantes: JSON basado en notas o el mapa interactivo más nuevo del estudio (--kind / MindMapKind)	JSON
+Más allá de la interfaz web
+Capacidades programáticas, por lotes y de archivo local que facilitan la API/CLI — varias en formatos más completos, o a mayor escala, que haciendo clic en la app web:
 
-These combine ordinary library primitives — see the [CLI Reference](docs/cli-reference.md) and [Python API](docs/python-api.md). The agent-side glue (skills, scheduling, vault layout) lives in your own setup, not this package. Per-notebook source counts depend on your Google account tier — split across notebooks if you hit a cap.
+Descargas por lotes - Descargar todos los artefactos de un tipo a la vez
+Exportación de cuestionarios/tarjetas - Obtener archivos JSON, Markdown o HTML estructurados
+Extracción de datos de mapas mentales - Exportar árboles jerárquicos en JSON para herramientas de visualización
+Exportación de tablas de datos a CSV - Descargar tablas estructuradas como hojas de cálculo
+Presentación de diapositivas como PPTX o PDF - Descargar archivos editables de PowerPoint o PDF
+Revisión de diapositivas - Modificar diapositivas individuales con prompts en lenguaje natural
+Personalización de plantillas de informes - Agregar instrucciones adicionales a las plantillas de formato incorporadas
+Guardar el historial del chat como notas - Persistir toda una conversación de preguntas y respuestas (no solo una respuesta puntual) como nota del notebook
+Acceso al texto completo de la fuente - Recuperar el contenido de texto indexado de cualquier fuente
+Compartir de forma programática - Gestionar permisos sin usar la interfaz
+Instalación
+La guía de instalación completa — seis perfiles (agente, usuario final, librería, sin interfaz gráfica, colaborador, usuario avanzado), matriz de extras opcionales, notas por plataforma — está en docs/installation.md.
 
-**New here?** Start with a walkthrough: [Claude Code + NotebookLM = CHEAT CODE (video)](https://www.youtube.com/watch?v=usTeU4Uh0iM) · [5 demos + 50 use cases, with prompts](https://aiblewmymind.substack.com/p/notebooklm-claude-code-use-cases).
+Inicio más rápido (usuarios de CLI y agentes de IA) — instalar la CLI con uv tool (recomendado) o pipx:
 
-## Ways to Use
+bash
+uv tool install "notebooklm-py[browser]"   # o: pipx install "notebooklm-py[browser]"
+notebooklm login                           # la primera ejecución descarga Chromium automáticamente (~170 MB), luego inicio de sesión de Google
+notebooklm auth check --test --json        # verificar: se espera "status": "ok"
+¿Por qué uv tool / pipx? Instalan la CLI en su propio entorno aislado y ponen notebooklm en el PATH — sin conflictos de dependencias con otras herramientas, una actualización de una sola línea (uv tool upgrade notebooklm-py) o desinstalación, y, algo crucial, funcionan en macOS moderno (Python de Homebrew) y en Debian/Ubuntu, donde un pip install a nivel de sistema queda bloqueado con error: externally-managed-environment (PEP 668). ¿Todavía no tenés uv? curl -LsSf https://astral.sh/uv/install.sh | sh (o brew install uv / winget install astral-sh.uv).
 
-| Method | Best For |
-|--------|----------|
-| **Python API** | Application integration, async workflows, custom pipelines |
-| **CLI** | Shell scripts, quick tasks, CI/CD automation |
-| **MCP Server** | Claude Desktop/Code, Codex, etc. — locally via stdio, or as a self-hosted remote connector (behind a Cloudflare/Tailscale tunnel) reachable from claude.ai and ChatGPT, mobile included. |
-| **REST Server** | Local automation over guarded HTTP routes without spawning a CLI process per call |
-| **Agent Integration** | Claude Code, Codex, LLM agents, natural language automation |
+¿Prefiere pip común? Funciona igual dentro de un entorno virtual (y directamente en Windows, donde Python no está gestionado externamente):
 
-## Features
-
-### Complete NotebookLM Coverage
-
-| Category | Capabilities |
-|----------|--------------|
-| **Notebooks** | Create, list, rename, delete |
-| **Sources** | URLs, YouTube, files (PDF, text, Markdown, Word, EPUB, audio, video, images), Google Drive, pasted text; refresh, get guide/fulltext |
-| **Chat** | Questions, conversation history, custom personas, suggested starter prompts |
-| **Notes** | Create, list, rename, delete, save chat answers, save conversation history |
-| **Source Labels** | AI-generated or manual topic labels; add/remove source membership; filter sources by label |
-| **Research** | Web and Drive research agents (fast/deep modes) with auto-import |
-| **Sharing** | Public/private links, user permissions (viewer/editor), view level control |
-
-### Content Generation (All Artifact Types)
-
-| Type | Options | Download Format |
-|------|---------|-----------------|
-| **Audio Overview** | 4 formats (deep-dive, brief, critique, debate), 3 lengths, 50+ languages | MP3 |
-| **Video Overview** | 4 formats (explainer, brief, cinematic, short), 8 visual styles (+ auto/custom), plus a dedicated `cinematic-video` CLI alias | MP4 |
-| **Slide Deck** | Detailed or presenter format, adjustable length; individual slide revision | PDF, PPTX |
-| **Infographic** | 3 orientations, 3 detail levels | PNG |
-| **Quiz** | Configurable quantity and difficulty | JSON, Markdown, HTML |
-| **Flashcards** | Configurable quantity and difficulty | JSON, Markdown, HTML |
-| **Report** | Briefing doc, study guide, blog post, or custom prompt | Markdown |
-| **Data Table** | Custom structure via natural language | CSV |
-| **Mind Map** | Hierarchical node tree — **two kinds**: note-backed JSON or the newer interactive studio map (`--kind` / `MindMapKind`) | JSON |
-
-### Beyond the Web UI
-
-Programmatic, batch, and local-file capabilities the API/CLI make easy — several in richer formats, or at a scale, than clicking through the web app:
-
-- **Batch downloads** - Download all artifacts of a type at once
-- **Quiz/Flashcard export** - Get structured JSON, Markdown, or HTML files
-- **Mind map data extraction** - Export hierarchical JSON for visualization tools
-- **Data table CSV export** - Download structured tables as spreadsheets
-- **Slide deck as PPTX or PDF** - Download editable PowerPoint or PDF files
-- **Slide revision** - Modify individual slides with natural-language prompts
-- **Report template customization** - Append extra instructions to built-in format templates
-- **Save chat history to notes** - Persist a whole Q&A conversation (not just a single answer) as a notebook note
-- **Source fulltext access** - Retrieve the indexed text content of any source
-- **Programmatic sharing** - Manage permissions without the UI
-
-## Installation
-
-The full install guide — six personas (agent, end-user, library, headless, contributor, power-user), optional extras matrix, platform notes — lives in **[docs/installation.md](docs/installation.md)**.
-
-**Quickest start** (CLI users and AI agents) — install the CLI with `uv tool` (recommended) or `pipx`:
-
-```bash
-uv tool install "notebooklm-py[browser]"   # or: pipx install "notebooklm-py[browser]"
-notebooklm login                           # first run auto-downloads Chromium (~170 MB), then Google sign-in
-notebooklm auth check --test --json        # verify: expect "status": "ok"
-```
-
-**Why `uv tool` / `pipx`?** They install the CLI into its own isolated environment and put `notebooklm` on your `PATH` — no dependency clashes with other tools, a one-line upgrade (`uv tool upgrade notebooklm-py`) or uninstall, and, crucially, they work on modern macOS (Homebrew Python) and Debian/Ubuntu where a system-wide `pip install` is blocked with `error: externally-managed-environment` ([PEP 668](https://peps.python.org/pep-0668/)). No `uv` yet? `curl -LsSf https://astral.sh/uv/install.sh | sh` (or `brew install uv` / `winget install astral-sh.uv`).
-
-**Prefer plain `pip`?** It works the same **inside a virtualenv** (and directly on Windows, where Python isn't externally-managed):
-
-```bash
+bash
 python3 -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install "notebooklm-py[browser]"
-```
+Como librería (incorporada en la aplicación propia — sin Playwright, sin Chromium):
 
-**As a library** (embedded in your app — no Playwright, no Chromium):
+bash
+uv add notebooklm-py                    # o, dentro de un entorno virtual: pip install notebooklm-py
+Si playwright install chromium falla en Linux con TypeError: onExit is not a function, ver la solución alternativa para Linux. Colaboradores: ver CONTRIBUTING.md.
 
-```bash
-uv add notebooklm-py                    # or, inside a virtualenv: pip install notebooklm-py
-```
+Autenticación y acceso
+Autenticación flexible para desarrollo local, servidores sin interfaz gráfica y configuraciones multiusuario:
 
-If `playwright install chromium` fails on Linux with `TypeError: onExit is not a function`, see the [Linux workaround](docs/troubleshooting.md#linux). **Contributors:** see [CONTRIBUTING.md](CONTRIBUTING.md).
+Tres formas de obtener cookies - Inicio de sesión interactivo con Playwright (predeterminado), importación desde un navegador ya autenticado (login --browser-cookies chrome, sin Playwright), o un token maestro duradero.
+Autenticación con token maestro - Genera cookies web frescas bajo demanda sin necesidad de un navegador por sesión (login --master-token --account tucorreo@ejemplo.com), de modo que se autorrepara ante sesiones vencidas sin supervisión — el modelo de autenticación para servidores, CI y el conector MCP remoto (claude.ai / ChatGPT).
+Perfiles multicuenta - Cambiar entre cuentas de Google sin necesidad de volver a autenticarse.
+Configuración del agente
+Opción 1 — Instalación por CLI:
 
-
-### Authentication & Access
-
-Flexible auth for local dev, headless servers, and multi-tenant setups:
-
-- **Three ways to get cookies** - Interactive Playwright login (default), import from an already-signed-in browser (`login --browser-cookies chrome`, no Playwright), or a durable **master token**.
-- **Master-token auth** - Mints fresh web cookies **on demand** with no per-session browser (`login --master-token --account you@example.com`), so it self-heals expired sessions unattended — the auth model for servers, CI, and the remote MCP connector (claude.ai / ChatGPT).
-- **Multi-account profiles** - Switch between Google accounts without re-authenticating.
-
-### Agent Setup
-
-**Option 1 — CLI install**:
-
-```bash
+bash
 notebooklm skill install
-```
+Instala la skill en ~/.claude/skills/notebooklm y en ~/.agents/skills/notebooklm.
 
-Installs the skill into `~/.claude/skills/notebooklm` and `~/.agents/skills/notebooklm`.
+Opción 2 — Instalación con npx (a través del ecosistema abierto de skills):
 
-**Option 2 — `npx` install** (via the open skills ecosystem):
-
-```bash
+bash
 npx skills add teng-lin/notebooklm-py
-```
+Obtiene el SKILL.md canónico directamente desde GitHub.
 
-Fetches the canonical [SKILL.md](SKILL.md) directly from GitHub.
-
-## Quick Start
-
-<p align="center">
-  <a href="https://asciinema.org/a/767284" target="_blank"><img src="https://asciinema.org/a/767284.svg" width="600" /></a>
-  <br>
-  <em>16-minute session compressed to 30 seconds</em>
-</p>
-
-### CLI
-
-```bash
-# 1. Authenticate (opens browser)
+Inicio rápido
+<p align="center"> <a href="https://asciinema.org/a/767284" target="_blank"><img src="https://asciinema.org/a/767284.svg" width="600" /></a> <br> <em>Sesión de 16 minutos comprimida a 30 segundos</em> </p>
+CLI
+bash
+# 1. Autenticarse (abre el navegador)
 notebooklm login
-# Or use Microsoft Edge (for orgs that require Edge for SSO)
+# O usar Microsoft Edge (para organizaciones que requieren Edge para SSO)
 # notebooklm login --browser msedge
-# Or reuse cookies from an already-logged-in browser session
+# O reutilizar cookies de una sesión de navegador ya iniciada
 # notebooklm login --browser-cookies chrome
-# notebooklm login --browser-cookies 'chrome::Profile 1'  # one Chromium profile
-# (combine with --profile to populate a specific profile;
-#  use --account / --all-accounts after auth inspect when several
-#  Google accounts are signed in)
+# notebooklm login --browser-cookies 'chrome::Profile 1'  # un solo perfil de Chromium
+# (combinar con --profile para completar un perfil específico;
+#  usar --account / --all-accounts después de auth inspect cuando hay
+#  varias cuentas de Google conectadas)
 
-# 2. Create a notebook and add sources
-notebooklm create "My Research"
-notebooklm use <notebook_id>
-notebooklm source add "https://en.wikipedia.org/wiki/Artificial_intelligence"
+# 2. Crear un notebook y agregar fuentes
+notebooklm create "Mi investigación"
+notebooklm use <id_del_notebook>
+notebooklm source add "https://es.wikipedia.org/wiki/Inteligencia_artificial"
 notebooklm source add "./paper.pdf"
 
-# 3. Chat with your sources
-notebooklm ask "What are the key themes?"
-notebooklm ask --prompt-file ./long_question.txt  # Read question from file
+# 3. Conversar con las fuentes
+notebooklm ask "¿Cuáles son los temas clave?"
+notebooklm ask --prompt-file ./pregunta_larga.txt  # Leer la pregunta desde un archivo
 
-# 4. Generate content (use --prompt-file for long prompts)
-notebooklm generate audio "make it engaging" --wait
+# 4. Generar contenido (usar --prompt-file para prompts largos)
+notebooklm generate audio "hacerlo entretenido" --wait
 notebooklm generate video --style whiteboard --wait
-notebooklm generate cinematic-video "documentary-style summary" --wait
+notebooklm generate cinematic-video "resumen estilo documental" --wait
 notebooklm generate quiz --difficulty hard
 notebooklm generate flashcards --quantity more
 notebooklm generate slide-deck
 notebooklm generate infographic --orientation portrait
-notebooklm generate mind-map                       # interactive studio map (default); --kind note-backed for the JSON tree
-notebooklm generate data-table "compare key concepts"
+notebooklm generate mind-map                       # mapa interactivo del estudio (predeterminado); --kind note-backed para el árbol JSON
+notebooklm generate data-table "comparar conceptos clave"
 
-# 5. Download artifacts
+# 5. Descargar artefactos
 notebooklm download audio ./podcast.m4a
-notebooklm download video ./overview.mp4
-notebooklm download cinematic-video ./documentary.mp4
-notebooklm download quiz --format markdown ./quiz.md
-notebooklm download flashcards --format json ./cards.json
-notebooklm download slide-deck ./slides.pdf
-notebooklm download infographic ./infographic.png
-notebooklm download mind-map ./mindmap.json
-notebooklm download data-table ./data.csv
-```
+notebooklm download video ./resumen.mp4
+notebooklm download cinematic-video ./documental.mp4
+notebooklm download quiz --format markdown ./cuestionario.md
+notebooklm download flashcards --format json ./tarjetas.json
+notebooklm download slide-deck ./diapositivas.pdf
+notebooklm download infographic ./infografia.png
+notebooklm download mind-map ./mapamental.json
+notebooklm download data-table ./datos.csv
+Otros comandos útiles de la CLI:
 
-Other useful CLI commands:
+bash
+notebooklm auth check --test         # Diagnosticar problemas de autenticación/cookies
+notebooklm auth refresh --quiet      # Renovación puntual de cookies (para cron / launchd / systemd)
+notebooklm auth refresh --browser-cookies chrome  # Reextraer y reparar el enrutamiento de cuentas
+notebooklm auth inspect --browser 'chrome::Profile 1'  # Previsualizar un perfil de Chromium
+notebooklm agent show codex          # Mostrar las instrucciones incluidas para Codex
+notebooklm agent show claude         # Mostrar la plantilla de skill incluida para Claude Code
+notebooklm language list             # Listar los idiomas de salida disponibles
+notebooklm metadata --json           # Exportar metadatos y fuentes del notebook
+notebooklm share status              # Ver el estado de lo compartido
+notebooklm source add-research "IA" --import-all  # investigación web + importar las fuentes encontradas
+notebooklm skill status              # Verificar la instalación local de la skill del agente
+notebooklm profile list              # Listar todos los perfiles de cuentas de Google
+notebooklm profile switch work       # Cambiar al perfil de cuenta activo
+Usar --prompt-file RUTA con ask, los comandos generate basados en prompt, y source add-research cuando el texto sea demasiado largo para la línea de comandos de la shell. Esto lee el texto del prompt/consulta desde un archivo y es independiente de source add ./archivo.pdf, que sigue subiendo ese archivo como fuente de NotebookLM.
 
-```bash
-notebooklm auth check --test         # Diagnose auth/cookie issues
-notebooklm auth refresh --quiet      # One-shot cookie keepalive (for cron / launchd / systemd)
-notebooklm auth refresh --browser-cookies chrome  # Re-extract and repair account routing
-notebooklm auth inspect --browser 'chrome::Profile 1'  # Preview one Chromium profile
-notebooklm agent show codex          # Print bundled Codex instructions
-notebooklm agent show claude         # Print bundled Claude Code skill template
-notebooklm language list             # List supported output languages
-notebooklm metadata --json           # Export notebook metadata and sources
-notebooklm share status              # Inspect sharing state
-notebooklm source add-research "AI" --import-all  # web research + import found sources
-notebooklm skill status              # Check local agent skill installation
-notebooklm profile list              # List all Google account profiles
-notebooklm profile switch work       # Switch active account profile
-```
-
-Use `--prompt-file PATH` with `ask`, prompt-based `generate` commands, and `source add-research` when the text is too long for the shell command line. This reads prompt/query text from a file and is separate from `source add ./file.pdf`, which still uploads that file as a NotebookLM source.
-
-### Python API
-
-```python
+API de Python
+python
 import asyncio
 from notebooklm import NotebookLMClient, MindMapKind
 
 
 async def main():
     async with NotebookLMClient.from_storage() as client:
-        # Create notebook and add sources
-        nb = await client.notebooks.create("Research")
+        # Crear notebook y agregar fuentes
+        nb = await client.notebooks.create("Investigación")
         await client.sources.add_url(nb.id, "https://example.com", wait=True)
 
-        # Chat with your sources
-        result = await client.chat.ask(nb.id, "Summarize this")
+        # Conversar con las fuentes
+        result = await client.chat.ask(nb.id, "Resumir esto")
         print(result.answer)
 
-        # Generate content (podcast, video, quiz, etc.)
-        status = await client.artifacts.generate_audio(nb.id, instructions="make it fun")
+        # Generar contenido (podcast, video, cuestionario, etc.)
+        status = await client.artifacts.generate_audio(nb.id, instructions="hacerlo divertido")
         await client.artifacts.wait_for_completion(nb.id, status.task_id)
         await client.artifacts.download_audio(nb.id, "podcast.m4a")
 
-        # Generate quiz and download as JSON
+        # Generar cuestionario y descargarlo como JSON
         status = await client.artifacts.generate_quiz(nb.id)
         await client.artifacts.wait_for_completion(nb.id, status.task_id)
-        await client.artifacts.download_quiz(nb.id, "quiz.json", output_format="json")
+        await client.artifacts.download_quiz(nb.id, "cuestionario.json", output_format="json")
 
-        # Generate a mind map via the unified client.mind_maps API (issue #1256) —
-        # two kinds: the newer MindMapKind.INTERACTIVE studio map (shown; polled to
-        # completion by default) or MindMapKind.NOTE_BACKED JSON. Both export via:
+        # Generar un mapa mental mediante la API unificada client.mind_maps (issue #1256) —
+        # dos variantes: el mapa interactivo más nuevo del estudio MindMapKind.INTERACTIVE (mostrado;
+        # sondeado hasta su finalización por defecto) o el JSON basado en notas MindMapKind.NOTE_BACKED.
+        # Ambos se exportan mediante:
         mm = await client.mind_maps.generate(nb.id, kind=MindMapKind.INTERACTIVE)
-        await client.artifacts.download_mind_map(nb.id, "mindmap.json", mm.id)
+        await client.artifacts.download_mind_map(nb.id, "mapamental.json", mm.id)
 
 
 asyncio.run(main())
-```
+Documentación
+Referencia de la CLI - Documentación completa de comandos
+API de Python - Referencia completa de la API
+Guía de MCP - Configuración del servidor MCP, transportes y referencia de herramientas
+Servidor de API REST - Servidor FastAPI experimental en localhost
+Configuración - Almacenamiento y ajustes
+Límites de cuota y nivel de cuenta - Límites de notebooks/fuentes/estudio por nivel de cuenta y cómo se corresponden con AccountLimits.tier
+Guía de lanzamiento - Lista de verificación de lanzamiento y verificación del empaquetado
+Solución de problemas - Problemas comunes y soluciones
+Estabilidad de la API - Política de versionado y garantías de estabilidad
+Actualización a la versión 0.8.0 - Guía de migración de cambios incompatibles para el contrato de errores y retornos de la v0.8.0
+Para colaboradores
+Arquitectura - Visión general de la arquitectura y principios de diseño
+Guía de desarrollo - Arquitectura, pruebas y lanzamientos
+Desarrollo de RPC - Captura y depuración de protocolo
+Referencia de RPC - Estructuras de payload
+Registro de cambios - Historial de versiones y notas de lanzamiento
+Seguridad - Política de seguridad y manejo de credenciales
+Licencia
+Licencia MIT. Ver LICENSE para más detalles.
 
-## Documentation
-
-- **[CLI Reference](docs/cli-reference.md)** - Complete command documentation
-- **[Python API](docs/python-api.md)** - Full API reference
-- **[MCP Guide](docs/mcp-guide.md)** - MCP server setup, transports, and tool reference
-- **[REST API Server](docs/installation.md#rest-api-server)** - Experimental localhost FastAPI server
-- **[Configuration](docs/configuration.md)** - Storage and settings
-- **[Quota & Tier Limits](docs/quota-limits.md)** - Per-tier notebook/source/studio limits and how they map to `AccountLimits.tier`
-- **[Release Guide](docs/releasing.md)** - Release checklist and packaging verification
-- **[Troubleshooting](docs/troubleshooting.md)** - Common issues and solutions
-- **[API Stability](docs/stability.md)** - Versioning policy and stability guarantees
-- **[Upgrading to v0.8.0](docs/upgrading-to-0.8.0.md)** - Breaking-change migration guide for the v0.8.0 error-and-return contract
-
-### For Contributors
-
-- **[Architecture](docs/architecture.md)** - Architectural overview and design principles
-- **[Development Guide](docs/development.md)** - Architecture, testing, and releasing
-- **[RPC Development](docs/rpc-development.md)** - Protocol capture and debugging
-- **[RPC Reference](docs/rpc-reference.md)** - Payload structures
-- **[Changelog](CHANGELOG.md)** - Version history and release notes
-- **[Security](SECURITY.md)** - Security policy and credential handling
-
-## License
-
-MIT License. See [LICENSE](LICENSE) for details.
